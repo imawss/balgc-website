@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MUN Başvuru Sistemi</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+      }
+      #otpContainer,
+      #formContainer {
+        width: 50%;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      #formContainer {
+        display: none; 
+      }
+      .form-section {
+        display: none;
+      }
+      label,
+      select,
+      input {
+        display: block;
+        margin-bottom: 10px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="otpContainer">
+      <h2>Doğrulama Bağlantısı Gönder</h2>
+      <label for="otpEmail">Email:</label>
+      <input type="email" id="otpEmail" />
+      <button onclick="sendVerificationEmail()">
+        Doğrulama Bağlantısı Gönder
+      </button>
+      <p id="statusMessage"></p>
+    </div>
+
+    <div id="formContainer">
+      <h2>MUN Başvurusu</h2>
+      <label for="applicationType">Başvuru Türü Seçin:</label>
+      <select id="applicationType" onchange="showForm()">
+        <option value="">Başvuru Türü Seçin</option>
+        <option value="vice-chair">Komite Başkan Vekili</option>
+        <option value="delegate">Delege</option>
+        <option value="observer">Gözlemci</option>
+        <option value="press">Basın</option>
+      </select>
+
+      <div id="viceChairForm" class="form-section">
+        <h3>Komite Başkan Vekili Başvurusu</h3>
+        <label>Ad Soyad:</label>
+        <input type="text" id="viceChairName" />
+        <label>Email:</label>
+        <input type="email" id="viceChairEmail" disabled />
+      </div>
+
+      <div id="delegateForm" class="form-section">
+        <h3>Delege Başvurusu</h3>
+        <label>Ad Soyad:</label>
+        <input type="text" id="delegateName" />
+        <label>Email:</label>
+        <input type="email" id="delegateEmail" disabled />
+        <label>Kamera:</label>
+        <input type="text" id="delegateCamera" />
+        <label>Önceki Deneyim:</label>
+        <input type="text" id="delegateExperience" />
+      </div>
+
+      <div id="observerForm" class="form-section">
+        <h3>Gözlemci Başvurusu</h3>
+        <label>Ad Soyad:</label>
+        <input type="text" id="observerName" />
+        <label>Email:</label>
+        <input type="email" id="observerEmail" disabled />
+      </div>
+
+      <div id="pressForm" class="form-section">
+        <h3>Basın Başvurusu</h3>
+        <label>Ad Soyad:</label>
+        <input type="text" id="pressName" />
+        <label>Email:</label>
+        <input type="email" id="pressEmail" disabled />
+      </div>
+
+      <button onclick="submitApplication()">Başvuruyu Gönder</button>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        onAuthStateChanged,
+        sendEmailVerification,
+      } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+      import {
+        getDatabase,
+        ref,
+        push,
+      } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCWPy8BkRFzz8HNQFdlW0eC1qxP9I0IShE",
+        authDomain: "balgcvi.firebaseapp.com",
+        databaseURL:
+          "https://balgcvi-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "balgcvi",
+        storageBucket: "balgcvi.firebasestorage.app",
+        messagingSenderId: "128050952385",
+        appId: "1:128050952385:web:3511443e46a226a96bfc40",
+        measurementId: "G-3CHWDRHDHJ",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const database = getDatabase(app);
+
+      function sendVerificationEmail() {
+        const email = document.getElementById("otpEmail").value;
+        createUserWithEmailAndPassword(auth, email, "temporaryPassword123")
+          .then((userCredential) => {
+            const user = userCredential.user;
+            sendEmailVerification(user)
+              .then(() => {
+                document.getElementById("statusMessage").innerText =
+                  "Doğrulama e-postası gönderildi. Lütfen e-postanızı kontrol edin.";
+              })
+              .catch((error) => {
+                document.getElementById("statusMessage").innerText =
+                  "Doğrulama e-postası gönderilemedi: " + error.message;
+                console.error(
+                  "Doğrulama e-postası gönderilirken hata oluştu:",
+                  error
+                );
+              });
+          })
+          .catch((error) => {
+            document.getElementById("statusMessage").innerText =
+              "Kullanıcı oluşturulamadı: " + error.message;
+            console.error("Kullanıcı oluşturulurken hata oluştu:", error);
+          });
+      }
+
+      function checkEmailVerification() {
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            user
+              .reload()
+              .then(() => {
+                if (user.emailVerified) {
+                  document.getElementById("otpContainer").style.display =
+                    "none";
+                  document.getElementById("formContainer").style.display =
+                    "block";
+                  fillEmailFields(user.email); 
+                }
+              })
+              .catch((error) => {
+                console.error("Oturum güncellenirken hata oluştu:", error);
+              });
+          }
+        });
+      }
+
+      function showForm() {
+        const applicationType =
+          document.getElementById("applicationType").value;
+        document.getElementById("viceChairForm").style.display =
+          applicationType === "vice-chair" ? "block" : "none";
+        document.getElementById("delegateForm").style.display =
+          applicationType === "delegate" ? "block" : "none";
+        document.getElementById("observerForm").style.display =
+          applicationType === "observer" ? "block" : "none";
+        document.getElementById("pressForm").style.display =
+          applicationType === "press" ? "block" : "none";
+      }
+
+      function fillEmailFields(email) {
+        document.getElementById("viceChairEmail").value = email;
+        document.getElementById("delegateEmail").value = email;
+        document.getElementById("observerEmail").value = email;
+        document.getElementById("pressEmail").value = email;
+      }
+
+      function submitApplication() {
+        const applicationType =
+          document.getElementById("applicationType").value;
+        let formData = {};
+
+        if (applicationType === "vice-chair") {
+          formData.email =
+            document.getElementById("viceChairEmail")?.value || "";
+          formData.name = document.getElementById("viceChairName")?.value || "";
+        } else if (applicationType === "delegate") {
+          formData.email =
+            document.getElementById("delegateEmail")?.value || "";
+          formData.name = document.getElementById("delegateName")?.value || "";
+          formData.camera =
+            document.getElementById("delegateCamera")?.value || "";
+          formData.experience =
+            document.getElementById("delegateExperience")?.value || "";
+        } else if (applicationType === "observer") {
+          formData.email =
+            document.getElementById("observerEmail")?.value || "";
+          formData.name = document.getElementById("observerName")?.value || "";
+        } else if (applicationType === "press") {
+          formData.email = document.getElementById("pressEmail")?.value || "";
+          formData.name = document.getElementById("pressName")?.value || "";
+        } else {
+          alert("Lütfen başvuru türünü seçin.");
+          return;
+        }
+
+        push(ref(database, "applications/" + applicationType), formData)
+          .then(() => alert("Başvuru başarıyla kaydedildi!"))
+          .catch((error) =>
+            console.error("Başvuru kaydedilirken hata oluştu:", error)
+          );
+      }
+
+      checkEmailVerification();
+
+      window.sendVerificationEmail = sendVerificationEmail;
+      window.checkEmailVerification = checkEmailVerification;
+      window.showForm = showForm;
+      window.submitApplication = submitApplication;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webpage Layout</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        padding: 1rem;
+        color: white;
+    }
+
+    .navbar .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .navbar .menu {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .navbar .menu a {
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .section {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .section-1 {
+        background-color: #f0f8ff;
+        height: 100vh;
+    }
+
+    .section-1 h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .section-1 .apply-button {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    .section-remaining-time {
+        background-color: #e0f7fa;
+        height: 50vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        color: #333;
+    }
+
+    .section-2 {
+        background-color: #d1ecf1;
+        height: 100vh;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .count-box {
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 1rem;
+        width: 30%;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    .section-3 {
+        background-color: #e6f7ff;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .photo-gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 1rem;
+        width: 80%; 
+        justify-items: center;
+        align-items: center;
+    }
+
+    .photo-gallery img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .footer {
+        background-color: #333;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .footer .social-icons {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .footer .social-icons img {
+        width: 24px;
+        height: 24px; 
+        object-fit: contain;
+    }
+</style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">Logo</div>
+    <div class="menu">
+        <a href="#section1">Başlık 1</a>
+        <a href="#section2">Başlık 2</a>
+        <a href="#section3">Başlık 3</a>
+    </div>
+</div>
+
+<div class="content">
+    <div id="section1" class="section section-1">
+        <h1>Başvuru Başlığı</h1>
+        <button class="apply-button">Başvur</button>
+    </div>
+
+    <div class="section section-remaining-time">
+        Kalan Süre: 00:10:00 
+    </div>
+
+    <div id="section2" class="section section-2">
+        <div class="count-box">Başvuru Sayısı 1</div>
+        <div class="count-box">Başvuru Sayısı 2</div>
+        <div class="count-box">Başvuru Sayısı 3</div>
+    </div>
+
+    <div id="section3" class="section section-3">
+        <div class="photo-gallery">
+            <img src="photo1.jpg" alt="Photo 1">
+            <img src="photo2.jpg" alt="Photo 2">
+            <img src="photo3.jpg" alt="Photo 3">
+            <img src="photo4.jpg" alt="Photo 4">
+            <img src="photo5.jpg" alt="Photo 5">
+            <img src="photo6.jpg" alt="Photo 6">
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    Tüm hakları saklıdır © Aras Arkan
+    <div class="social-icons">
+        <a href="https://instagram.com" target="_blank">
+            <img src="instagram-icon.png" alt="Instagram">
+        </a>
+        <a href="https://github.com" target="_blank">
+            <img src="github-icon.png" alt="GitHub">
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
