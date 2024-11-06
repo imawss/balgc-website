@@ -18,10 +18,9 @@
         flex-direction: column;
         align-items: center;
         position: relative;
-        overflow-y: auto; /* Enable scrolling */
+        overflow-y: auto;
       }
 
-      /* Blurred background image with color transition */
       body::before {
         content: "";
         position: absolute;
@@ -41,7 +40,6 @@
         z-index: -1;
       }
 
-      /* Navbar styling */
       .navbar {
         position: fixed;
         top: 0;
@@ -72,15 +70,14 @@
         color: #d1caca;
       }
 
-      /* Centering the form container */
       .container {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
         max-width: 500px;
-        margin: auto; /* Centers the container */
-        padding-top: 100px; /* Offset for the navbar height */
+        margin: auto; 
+        padding-top: 100px; 
         box-sizing: border-box;
         z-index: 1;
       }
@@ -103,7 +100,6 @@
         display: none;
       }
 
-      /* Input and button styling */
       label,
       select,
       input {
@@ -178,7 +174,6 @@
     </style>
   </head>
   <body>
-    <!-- Navbar -->
     <div class="navbar">
       <div class="logo">
         <a href="index.html"><img src="assets/img/logo-1.png" alt="Logo" /></a>
@@ -189,10 +184,7 @@
         <a href="#section3">İletişim</a>
       </div>
     </div>
-
-    <!-- Content container for centering -->
     <div class="container">
-      <!-- OTP Container -->
       <div id="otpContainer">
         <h2>Doğrulama Bağlantısı Gönder</h2>
         <label for="otpEmail">Email:</label>
@@ -203,7 +195,6 @@
         <p id="statusMessage"></p>
       </div>
 
-      <!-- Form Container -->
       <div id="formContainer">
         <h2>BALGÇ Başvuru Formu:</h2>
         <label for="applicationType">Başvuru Türü Seçin:</label>
@@ -281,9 +272,9 @@
       </div>
     </div>
 
-    <!-- Script -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+      import { set } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
       import {
         getAuth,
         createUserWithEmailAndPassword,
@@ -381,7 +372,6 @@
           return;
         }
 
-        // Declare formData here, so it's accessible everywhere in the function
         let formData = { email };
 
         const applicationsRef = ref(
@@ -402,7 +392,6 @@
               }
             }
 
-            // Collect form data based on application type
             if (applicationType === "vice-chair") {
               formData.name =
                 document.getElementById("viceChairName")?.value || "";
@@ -430,30 +419,41 @@
               formData.name = document.getElementById("pressName")?.value || "";
             }
 
-            // Save the application to Firebase
             push(applicationsRef, formData)
               .then(() => {
                 alert("Başvuru başarıyla kaydedildi!");
 
-                // Update application count for the specific type
-                const countRef = ref(
-                  database,
-                  "applicationCounts/" + applicationType
-                );
-                get(countRef).then((countSnapshot) => {
-                  let currentCount = countSnapshot.exists()
-                    ? countSnapshot.val()
-                    : 0;
-                  // Increase the count by 1
-                  countRef
-                    .set(currentCount + 1)
-                    .then(() => console.log("Başvuru sayısı güncellendi!"))
-                    .catch((error) =>
-                      console.error(
-                        "Başvuru sayısı güncellenirken hata oluştu:",
-                        error
-                      )
+                const countsRef = ref(database, "applicationCounts");
+
+                get(countsRef).then((snapshot) => {
+                  if (!snapshot.exists()) {
+                    set(countsRef, {
+                      "vice-chair": 0,
+                      delegate: 0,
+                      observer: 0,
+                      press: 0,
+                    }).catch((error) =>
+                      console.error("Başlatma hatası:", error)
                     );
+                  }
+
+                  const countRef = ref(
+                    database,
+                    "applicationCounts/" + applicationType
+                  );
+                  get(countRef).then((countSnapshot) => {
+                    let currentCount = countSnapshot.exists()
+                      ? countSnapshot.val()
+                      : 0;
+                    set(countRef, currentCount + 1)
+                      .then(() => console.log("Başvuru sayısı güncellendi!"))
+                      .catch((error) =>
+                        console.error(
+                          "Başvuru sayısı güncellenirken hata oluştu:",
+                          error
+                        )
+                      );
+                  });
                 });
               })
               .catch((error) =>

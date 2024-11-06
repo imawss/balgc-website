@@ -131,7 +131,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+        background-color: rgba(0, 0, 0, 0.4);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -197,7 +197,7 @@
 
       @media (max-width: 768px) {
         .section-1 h1 {
-          font-size: 1.5rem; 
+          font-size: 1.5rem;
         }
 
         .section-1 .apply-button {
@@ -208,11 +208,11 @@
         .count-box {
           width: 150px;
           height: 150px;
-          font-size: 1rem; 
+          font-size: 1rem;
         }
 
         .section-remaining-time {
-          font-size: 1.0rem; 
+          font-size: 1rem;
         }
       }
     </style>
@@ -240,33 +240,29 @@
       </div>
 
       <div id="section2" class="section section-2">
-        <div
-          id="count-box-admin"
-          class="count-box"
-          style="background-image: url('assets/img/symbol/admin.JPG')"
-        >
-          <div class="count-overlay" id="count-admin">0</div>
+        <div id="count-box-admin" class="count-box" style="background-image: url('assets/img/symbol/admin.JPG')">
+          <div class="count-overlay">
+            <span>Delege:</span>
+            <div id="count-admin">0</div>
+          </div>
         </div>
-        <div
-          id="count-box-delegate"
-          class="count-box"
-          style="background-image: url('assets/img/symbol/delegate.JPG')"
-        >
-          <div class="count-overlay" id="count-delegate">0</div>
+        <div id="count-box-delegate" class="count-box" style="background-image: url('assets/img/symbol/delegate.JPG')">
+          <div class="count-overlay">
+            <span>Basın:</span>
+            <div id="count-delegate">0</div>
+          </div>
         </div>
-        <div
-          id="count-box-press"
-          class="count-box"
-          style="background-image: url('assets/img/symbol/press.JPG')"
-        >
-          <div class="count-overlay" id="count-press">0</div>
+        <div id="count-box-press" class="count-box" style="background-image: url('assets/img/symbol/press.JPG')">
+          <div class="count-overlay">
+            <span>Gözlemci:</span>
+            <div id="count-press">0</div>
+          </div>
         </div>
-        <div
-          id="count-box-vice-chair"
-          class="count-box"
-          style="background-image: url('assets/img/symbol/chair.JPG')"
-        >
-          <div class="count-overlay" id="count-vice-chair">0</div>
+        <div id="count-box-vice-chair" class="count-box" style="background-image: url('assets/img/symbol/chair.JPG')">
+          <div class="count-overlay">
+            <span>Vekil: </span>
+            <div id="count-vice-chair">0</div>
+          </div>
         </div>
       </div>
     </div>
@@ -300,50 +296,40 @@
     </script>
 
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 
     <script>
-      // Your Firebase configuration
       const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_STORAGE_BUCKET",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "YOUR_APP_ID",
+        apiKey: "AIzaSyCWPy8BkRFzz8HNQFdlW0eC1qxP9I0IShE",
+        authDomain: "balgcvi.firebaseapp.com",
+        databaseURL:
+          "https://balgcvi-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "balgcvi",
+        storageBucket: "balgcvi.firebasestorage.app",
+        messagingSenderId: "128050952385",
+        appId: "1:128050952385:web:3511443e46a226a96bfc40",
+        measurementId: "G-3CHWDRHDHJ",
       };
 
       const app = firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore();
+      const database = firebase.database();
+
       async function fetchApplicationCounts() {
         try {
-          const adminDoc = await db
-            .collection("applications")
-            .doc("admin")
-            .get();
-          document.getElementById("count-admin").textContent =
-            "Gözlemci:" + adminDoc.data().count || 0;
+          const countsRef = database.ref("applicationCounts");
 
-          const delegateDoc = await db
-            .collection("applications")
-            .doc("delegate")
-            .get();
-          document.getElementById("count-delegate").textContent =
-            "Delege:" + delegateDoc.data().count || 0;
+          countsRef.on("value", (snapshot) => {
+            const counts = snapshot.val();
 
-          const pressDoc = await db
-            .collection("applications")
-            .doc("press")
-            .get();
-          document.getElementById("count-press").textContent =
-            "Basın:" + pressDoc.data().count || 0;
-
-          const viceChairDoc = await db
-            .collection("applications")
-            .doc("vice-chair")
-            .get();
-          document.getElementById("count-vice-chair").textContent =
-            "Vekil:" + viceChairDoc.data().count || 0;
+            document.getElementById("count-admin").textContent =
+              counts?.admin || 0;
+            document.getElementById("count-delegate").textContent =
+              counts?.delegate || 0;
+            document.getElementById("count-press").textContent =
+              counts?.press || 0;
+            document.getElementById("count-vice-chair").textContent =
+              counts?.["vice-chair"] || 0;
+          });
         } catch (error) {
           console.error("Error fetching application counts:", error);
         }
