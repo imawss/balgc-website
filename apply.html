@@ -3,30 +3,81 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MUN Başvuru Sistemi</title>
-    <link rel="stylesheet" href="style.css">
+    <title>BALGÇ | Başvur</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="assets/img/logo-1.png" />
     <style>
+      /* Basic styling */
       body {
         font-family: Arial, sans-serif;
+        background-color: #700018;
+        margin: 0;
+        color: #f2efeb;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      /* Navbar styling */
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background-color: #900020;
+        z-index: 100;
+      }
+
+      .navbar .logo img {
+        width: 50px;
+        height: auto;
+      }
+
+      .navbar .menu a {
+        margin-left: 1rem;
+        color: #f2efeb;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .navbar .menu a:hover {
+        color: #d1caca;
+      }
+
+      /* Centering the form container */
+      .container {
+        flex: 1;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        background-color: #f4f4f4;
+        width: 100%;
+        padding-top: 80px; /* Offset for the navbar height */
       }
+
       #otpContainer,
       #formContainer {
-        width: 50%;
+        width: 40%;
+        max-width: 500px;
         padding: 20px;
-        background: white;
+        background: #900020;
+        color: white;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
       }
+
       #formContainer {
-        display: none; 
+        display: none;
       }
+
       .form-section {
         display: none;
       }
+
+      /* Input and button styling */
       label,
       select,
       input {
@@ -34,69 +85,148 @@
         margin-bottom: 10px;
         width: 100%;
       }
+
+      input,
+      select {
+        padding: 8px; /* Reduced padding for smaller input height */
+        border-radius: 5px;
+        border: 1px solid #f2efeb;
+        font-size: 1rem;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: #d1caca;
+        box-shadow: 0 0 5px rgba(210, 202, 202, 0.5);
+      }
+
+      #formContainer button,
+      #otpContainer button {
+        padding: 0.75rem 1.5rem; /* Reduced padding for smaller button */
+        font-size: 1rem;
+        font-family: "Roboto", sans-serif;
+        font-weight: 800;
+        background-color: #f2efeb;
+        color: #900020;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%;
+      }
+
+      #formContainer button:hover,
+      #otpContainer button:hover {
+        background-color: #d1caca;
+      }
+
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 0.5rem;
+        }
+
+        .navbar .logo img {
+          width: 40px;
+          height: 40px;
+        }
+
+        .menu a {
+          margin-left: 0.5rem;
+          font-size: 0.9rem;
+        }
+
+        #formContainer button,
+        #otpContainer button {
+          padding: 0.5rem 1rem;
+          font-size: 0.9rem;
+        }
+
+        #otpContainer,
+        #formContainer {
+          width: 90%;
+          max-width: 100%;
+        }
+      }
     </style>
   </head>
   <body>
-    <div id="otpContainer">
-      <h2>Doğrulama Bağlantısı Gönder</h2>
-      <label for="otpEmail">Email:</label>
-      <input type="email" id="otpEmail" />
-      <button onclick="sendVerificationEmail()">
-        Doğrulama Bağlantısı Gönder
-      </button>
-      <p id="statusMessage"></p>
+    <!-- Navbar -->
+    <div class="navbar">
+      <div class="logo"><img src="assets/img/logo-1.png" alt="Logo" /></div>
+      <div class="menu">
+        <a href="apply.html">Başvur</a>
+        <a href="committees.html">Komiteler</a>
+        <a href="#section3">İletişim</a>
+      </div>
     </div>
 
-    <div id="formContainer">
-      <h2>MUN Başvurusu</h2>
-      <label for="applicationType">Başvuru Türü Seçin:</label>
-      <select id="applicationType" onchange="showForm()">
-        <option value="">Başvuru Türü Seçin</option>
-        <option value="vice-chair">Komite Başkan Vekili</option>
-        <option value="delegate">Delege</option>
-        <option value="observer">Gözlemci</option>
-        <option value="press">Basın</option>
-      </select>
-
-      <div id="viceChairForm" class="form-section">
-        <h3>Komite Başkan Vekili Başvurusu</h3>
-        <label>Ad Soyad:</label>
-        <input type="text" id="viceChairName" />
-        <label>Email:</label>
-        <input type="email" id="viceChairEmail" disabled />
+    <!-- Content container for centering -->
+    <div class="container">
+      <!-- OTP Container -->
+      <div id="otpContainer">
+        <h2>Doğrulama Bağlantısı Gönder</h2>
+        <label for="otpEmail">Email:</label>
+        <input type="email" id="otpEmail" />
+        <button onclick="sendVerificationEmail()">Doğrulama Bağlantısı Gönder</button>
+        <p id="statusMessage"></p>
       </div>
 
-      <div id="delegateForm" class="form-section">
-        <h3>Delege Başvurusu</h3>
-        <label>Ad Soyad:</label>
-        <input type="text" id="delegateName" />
-        <label>Email:</label>
-        <input type="email" id="delegateEmail" disabled />
-        <label>Kamera:</label>
-        <input type="text" id="delegateCamera" />
-        <label>Önceki Deneyim:</label>
-        <input type="text" id="delegateExperience" />
-      </div>
+      <!-- Form Container -->
+      <div id="formContainer">
+        <h2>MUN Başvurusu</h2>
+        <label for="applicationType">Başvuru Türü Seçin:</label>
+        <select id="applicationType" onchange="showForm()">
+          <option value="">Başvuru Türü Seçin</option>
+          <option value="vice-chair">Komite Başkan Vekili</option>
+          <option value="delegate">Delege</option>
+          <option value="observer">Gözlemci</option>
+          <option value="press">Basın</option>
+        </select>
 
-      <div id="observerForm" class="form-section">
-        <h3>Gözlemci Başvurusu</h3>
-        <label>Ad Soyad:</label>
-        <input type="text" id="observerName" />
-        <label>Email:</label>
-        <input type="email" id="observerEmail" disabled />
-      </div>
+        <div id="viceChairForm" class="form-section">
+          <h3>Komite Başkan Vekili Başvurusu</h3>
+          <label>Ad Soyad:</label>
+          <input type="text" id="viceChairName" />
+          <label>Email:</label>
+          <input type="email" id="viceChairEmail" disabled />
+        </div>
 
-      <div id="pressForm" class="form-section">
-        <h3>Basın Başvurusu</h3>
-        <label>Ad Soyad:</label>
-        <input type="text" id="pressName" />
-        <label>Email:</label>
-        <input type="email" id="pressEmail" disabled />
-      </div>
+        <div id="delegateForm" class="form-section">
+          <h3>Delege Başvurusu</h3>
+          <label>Ad Soyad:</label>
+          <input type="text" id="delegateName" />
+          <label>Email:</label>
+          <input type="email" id="delegateEmail" disabled />
+          <label>Telefon Numarası:</label>
+          <input type="number" />
+          <label>Kamera:</label>
+          <input type="text" id="delegateCamera" />
+          <label>Önceki Deneyim:</label>
+          <input type="text" id="delegateExperience" />
+        </div>
 
-      <button onclick="submitApplication()">Başvuruyu Gönder</button>
+        <div id="observerForm" class="form-section">
+          <h3>Gözlemci Başvurusu</h3>
+          <label>Ad Soyad:</label>
+          <input type="text" id="observerName" />
+          <label>Email:</label>
+          <input type="email" id="observerEmail" disabled />
+        </div>
+
+        <div id="pressForm" class="form-section">
+          <h3>Basın Başvurusu</h3>
+          <label>Ad Soyad:</label>
+          <input type="text" id="pressName" />
+          <label>Email:</label>
+          <input type="email" id="pressEmail" disabled />
+        </div>
+
+        <button onclick="submitApplication()">Başvuruyu Gönder</button>
+      </div>
     </div>
 
+    <!-- Script -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
       import {
@@ -112,15 +242,12 @@
       } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
       const firebaseConfig = {
-        apiKey: "AIzaSyCWPy8BkRFzz8HNQFdlW0eC1qxP9I0IShE",
-        authDomain: "balgcvi.firebaseapp.com",
-        databaseURL:
-          "https://balgcvi-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "balgcvi",
-        storageBucket: "balgcvi.firebasestorage.app",
-        messagingSenderId: "128050952385",
-        appId: "1:128050952385:web:3511443e46a226a96bfc40",
-        measurementId: "G-3CHWDRHDHJ",
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID",
       };
 
       const app = initializeApp(firebaseConfig);
@@ -136,47 +263,26 @@
               .then(() => {
                 document.getElementById("statusMessage").innerText =
                   "Doğrulama e-postası gönderildi. Lütfen e-postanızı kontrol edin.";
-              })
-              .catch((error) => {
-                document.getElementById("statusMessage").innerText =
-                  "Doğrulama e-postası gönderilemedi: " + error.message;
-                console.error(
-                  "Doğrulama e-postası gönderilirken hata oluştu:",
-                  error
-                );
               });
-          })
-          .catch((error) => {
-            document.getElementById("statusMessage").innerText =
-              "Kullanıcı oluşturulamadı: " + error.message;
-            console.error("Kullanıcı oluşturulurken hata oluştu:", error);
           });
       }
 
       function checkEmailVerification() {
         onAuthStateChanged(auth, (user) => {
           if (user) {
-            user
-              .reload()
-              .then(() => {
-                if (user.emailVerified) {
-                  document.getElementById("otpContainer").style.display =
-                    "none";
-                  document.getElementById("formContainer").style.display =
-                    "block";
-                  fillEmailFields(user.email); 
-                }
-              })
-              .catch((error) => {
-                console.error("Oturum güncellenirken hata oluştu:", error);
-              });
+            user.reload().then(() => {
+              if (user.emailVerified) {
+                document.getElementById("otpContainer").style.display = "none";
+                document.getElementById("formContainer").style.display = "block";
+                fillEmailFields(user.email);
+              }
+            });
           }
         });
       }
 
       function showForm() {
-        const applicationType =
-          document.getElementById("applicationType").value;
+        const applicationType = document.getElementById("applicationType").value;
         document.getElementById("viceChairForm").style.display =
           applicationType === "vice-chair" ? "block" : "none";
         document.getElementById("delegateForm").style.display =
@@ -195,25 +301,19 @@
       }
 
       function submitApplication() {
-        const applicationType =
-          document.getElementById("applicationType").value;
+        const applicationType = document.getElementById("applicationType").value;
         let formData = {};
 
         if (applicationType === "vice-chair") {
-          formData.email =
-            document.getElementById("viceChairEmail")?.value || "";
+          formData.email = document.getElementById("viceChairEmail")?.value || "";
           formData.name = document.getElementById("viceChairName")?.value || "";
         } else if (applicationType === "delegate") {
-          formData.email =
-            document.getElementById("delegateEmail")?.value || "";
+          formData.email = document.getElementById("delegateEmail")?.value || "";
           formData.name = document.getElementById("delegateName")?.value || "";
-          formData.camera =
-            document.getElementById("delegateCamera")?.value || "";
-          formData.experience =
-            document.getElementById("delegateExperience")?.value || "";
+          formData.camera = document.getElementById("delegateCamera")?.value || "";
+          formData.experience = document.getElementById("delegateExperience")?.value || "";
         } else if (applicationType === "observer") {
-          formData.email =
-            document.getElementById("observerEmail")?.value || "";
+          formData.email = document.getElementById("observerEmail")?.value || "";
           formData.name = document.getElementById("observerName")?.value || "";
         } else if (applicationType === "press") {
           formData.email = document.getElementById("pressEmail")?.value || "";
@@ -223,17 +323,13 @@
           return;
         }
 
-        push(ref(database, "applications/" + applicationType), formData)
-          .then(() => alert("Başvuru başarıyla kaydedildi!"))
-          .catch((error) =>
-            console.error("Başvuru kaydedilirken hata oluştu:", error)
-          );
+        push(ref(database, "applications/" + applicationType), formData).then(() =>
+          alert("Başvuru başarıyla kaydedildi!")
+        );
       }
 
       checkEmailVerification();
-
       window.sendVerificationEmail = sendVerificationEmail;
-      window.checkEmailVerification = checkEmailVerification;
       window.showForm = showForm;
       window.submitApplication = submitApplication;
     </script>
