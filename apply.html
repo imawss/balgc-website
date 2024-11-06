@@ -10,19 +10,42 @@
       /* Basic styling */
       body {
         font-family: Arial, sans-serif;
-        background-color: #700018;
         margin: 0;
         color: #f2efeb;
+        min-height: 100vh;
+        background: linear-gradient(to bottom, #900020 60%, #900020);
         display: flex;
         flex-direction: column;
         align-items: center;
-        min-height: 100vh;
+        position: relative;
+        overflow-y: auto; /* Enable scrolling */
+      }
+
+      /* Blurred background image with color transition */
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0),
+            #900020 80%
+          ),
+          url(assets/img/background/_MG_9089.JPG);
+        background-size: cover;
+        background-position: center;
+        filter: blur(10px);
+        z-index: -1;
       }
 
       /* Navbar styling */
       .navbar {
         position: fixed;
         top: 0;
+        left: 0;
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -30,6 +53,7 @@
         padding: 1rem 2rem;
         background-color: #900020;
         z-index: 100;
+        box-sizing: border-box;
       }
 
       .navbar .logo img {
@@ -50,20 +74,22 @@
 
       /* Centering the form container */
       .container {
-        flex: 1;
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
-        padding-top: 80px; /* Offset for the navbar height */
+        max-width: 500px;
+        margin: auto; /* Centers the container */
+        padding-top: 100px; /* Offset for the navbar height */
+        box-sizing: border-box;
+        z-index: 1;
       }
 
       #otpContainer,
       #formContainer {
-        width: 40%;
-        max-width: 500px;
+        width: 100%;
         padding: 20px;
-        background: #900020;
+        background: #700018;
         color: white;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
@@ -88,7 +114,7 @@
 
       input,
       select {
-        padding: 8px; /* Reduced padding for smaller input height */
+        padding: 8px;
         border-radius: 5px;
         border: 1px solid #f2efeb;
         font-size: 1rem;
@@ -103,7 +129,7 @@
 
       #formContainer button,
       #otpContainer button {
-        padding: 0.75rem 1.5rem; /* Reduced padding for smaller button */
+        padding: 0.75rem 1.5rem;
         font-size: 1rem;
         font-family: "Roboto", sans-serif;
         font-weight: 800;
@@ -144,8 +170,9 @@
 
         #otpContainer,
         #formContainer {
-          width: 90%;
+          width: 100%;
           max-width: 100%;
+          padding: 15px;
         }
       }
     </style>
@@ -153,7 +180,9 @@
   <body>
     <!-- Navbar -->
     <div class="navbar">
-      <div class="logo"><img src="assets/img/logo-1.png" alt="Logo" /></div>
+      <div class="logo">
+        <a href="index.html"><img src="assets/img/logo-1.png" alt="Logo" /></a>
+      </div>
       <div class="menu">
         <a href="apply.html">Başvur</a>
         <a href="committees.html">Komiteler</a>
@@ -168,13 +197,15 @@
         <h2>Doğrulama Bağlantısı Gönder</h2>
         <label for="otpEmail">Email:</label>
         <input type="email" id="otpEmail" />
-        <button onclick="sendVerificationEmail()">Doğrulama Bağlantısı Gönder</button>
+        <button onclick="sendVerificationEmail()">
+          Doğrulama Bağlantısı Gönder
+        </button>
         <p id="statusMessage"></p>
       </div>
 
       <!-- Form Container -->
       <div id="formContainer">
-        <h2>MUN Başvurusu</h2>
+        <h2>BALGÇ Başvuru Formu:</h2>
         <label for="applicationType">Başvuru Türü Seçin:</label>
         <select id="applicationType" onchange="showForm()">
           <option value="">Başvuru Türü Seçin</option>
@@ -199,11 +230,35 @@
           <label>Email:</label>
           <input type="email" id="delegateEmail" disabled />
           <label>Telefon Numarası:</label>
-          <input type="number" />
-          <label>Kamera:</label>
-          <input type="text" id="delegateCamera" />
+          <input type="number" id="delegateNumber" />
+          <label for="committee">Başvuru Türü Seçin:</label>
+          <select id="committee" onchange="showForm()">
+            <option value="">1. Komite Tercihinizi Seçiniz</option>
+            <option value="vice-chair">Komite Başkan Vekili</option>
+            <option value="delegate">Delege</option>
+            <option value="observer">Gözlemci</option>
+            <option value="press">Basın</option>
+          </select>
+          <select id="committee2" onchange="showForm()">
+            <option value="">2. Komite Tercihinizi Seçiniz</option>
+            <option value="vice-chair">Komite Başkan Vekili</option>
+            <option value="delegate">Delege</option>
+            <option value="observer">Gözlemci</option>
+            <option value="press">Basın</option>
+          </select>
+          <select id="committee3" onchange="showForm()">
+            <option value="">3. Komite Tercihinizi Seçiniz</option>
+            <option value="vice-chair">Komite Başkan Vekili</option>
+            <option value="delegate">Delege</option>
+            <option value="observer">Gözlemci</option>
+            <option value="press">Basın</option>
+          </select>
           <label>Önceki Deneyim:</label>
           <input type="text" id="delegateExperience" />
+          <label>Motivasyon Mektubu:</label>
+          <input type="text" id="delegateLetter" />
+          <label>Referansınız:</label>
+          <input type="text" id="delegateReferance" />
         </div>
 
         <div id="observerForm" class="form-section">
@@ -239,15 +294,19 @@
         getDatabase,
         ref,
         push,
+        get,
       } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
       const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_STORAGE_BUCKET",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "YOUR_APP_ID",
+        apiKey: "AIzaSyCWPy8BkRFzz8HNQFdlW0eC1qxP9I0IShE",
+        authDomain: "balgcvi.firebaseapp.com",
+        databaseURL:
+          "https://balgcvi-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "balgcvi",
+        storageBucket: "balgcvi.firebasestorage.app",
+        messagingSenderId: "128050952385",
+        appId: "1:128050952385:web:3511443e46a226a96bfc40",
+        measurementId: "G-3CHWDRHDHJ",
       };
 
       const app = initializeApp(firebaseConfig);
@@ -256,15 +315,17 @@
 
       function sendVerificationEmail() {
         const email = document.getElementById("otpEmail").value;
-        createUserWithEmailAndPassword(auth, email, "temporaryPassword123")
-          .then((userCredential) => {
-            const user = userCredential.user;
-            sendEmailVerification(user)
-              .then(() => {
-                document.getElementById("statusMessage").innerText =
-                  "Doğrulama e-postası gönderildi. Lütfen e-postanızı kontrol edin.";
-              });
+        createUserWithEmailAndPassword(
+          auth,
+          email,
+          "temporaryPassword123"
+        ).then((userCredential) => {
+          const user = userCredential.user;
+          sendEmailVerification(user).then(() => {
+            document.getElementById("statusMessage").innerText =
+              "Doğrulama e-postası gönderildi. Lütfen e-postanızı kontrol edin.";
           });
+        });
       }
 
       function checkEmailVerification() {
@@ -273,7 +334,8 @@
             user.reload().then(() => {
               if (user.emailVerified) {
                 document.getElementById("otpContainer").style.display = "none";
-                document.getElementById("formContainer").style.display = "block";
+                document.getElementById("formContainer").style.display =
+                  "block";
                 fillEmailFields(user.email);
               }
             });
@@ -282,7 +344,8 @@
       }
 
       function showForm() {
-        const applicationType = document.getElementById("applicationType").value;
+        const applicationType =
+          document.getElementById("applicationType").value;
         document.getElementById("viceChairForm").style.display =
           applicationType === "vice-chair" ? "block" : "none";
         document.getElementById("delegateForm").style.display =
@@ -301,31 +364,105 @@
       }
 
       function submitApplication() {
-        const applicationType = document.getElementById("applicationType").value;
-        let formData = {};
+        const applicationType =
+          document.getElementById("applicationType").value;
+        const emailFieldId =
+          applicationType === "vice-chair"
+            ? "viceChairEmail"
+            : applicationType === "delegate"
+            ? "delegateEmail"
+            : applicationType === "observer"
+            ? "observerEmail"
+            : "pressEmail";
+        const email = document.getElementById(emailFieldId)?.value || "";
 
-        if (applicationType === "vice-chair") {
-          formData.email = document.getElementById("viceChairEmail")?.value || "";
-          formData.name = document.getElementById("viceChairName")?.value || "";
-        } else if (applicationType === "delegate") {
-          formData.email = document.getElementById("delegateEmail")?.value || "";
-          formData.name = document.getElementById("delegateName")?.value || "";
-          formData.camera = document.getElementById("delegateCamera")?.value || "";
-          formData.experience = document.getElementById("delegateExperience")?.value || "";
-        } else if (applicationType === "observer") {
-          formData.email = document.getElementById("observerEmail")?.value || "";
-          formData.name = document.getElementById("observerName")?.value || "";
-        } else if (applicationType === "press") {
-          formData.email = document.getElementById("pressEmail")?.value || "";
-          formData.name = document.getElementById("pressName")?.value || "";
-        } else {
-          alert("Lütfen başvuru türünü seçin.");
+        if (!email) {
+          alert("Lütfen email adresinizi girin.");
           return;
         }
 
-        push(ref(database, "applications/" + applicationType), formData).then(() =>
-          alert("Başvuru başarıyla kaydedildi!")
+        // Declare formData here, so it's accessible everywhere in the function
+        let formData = { email };
+
+        const applicationsRef = ref(
+          database,
+          "applications/" + applicationType
         );
+        get(applicationsRef)
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const applications = snapshot.val();
+              const emailExists = Object.values(applications).some(
+                (app) => app.email === email
+              );
+
+              if (emailExists) {
+                alert("Bu email ile zaten bir başvuru yapılmış.");
+                return;
+              }
+            }
+
+            // Collect form data based on application type
+            if (applicationType === "vice-chair") {
+              formData.name =
+                document.getElementById("viceChairName")?.value || "";
+            } else if (applicationType === "delegate") {
+              formData.name =
+                document.getElementById("delegateName")?.value || "";
+              formData.phoneNumber =
+                document.getElementById("delegateNumber")?.value || "";
+              formData.experience =
+                document.getElementById("delegateExperience")?.value || "";
+              formData.letter =
+                document.getElementById("delegateLetter")?.value || "";
+              formData.referance =
+                document.getElementById("delegateReferance")?.value || "";
+              formData.committee =
+                document.getElementById("committee")?.value || "";
+              formData.committee2 =
+                document.getElementById("committee2")?.value || "";
+              formData.committee3 =
+                document.getElementById("committee3")?.value || "";
+            } else if (applicationType === "observer") {
+              formData.name =
+                document.getElementById("observerName")?.value || "";
+            } else if (applicationType === "press") {
+              formData.name = document.getElementById("pressName")?.value || "";
+            }
+
+            // Save the application to Firebase
+            push(applicationsRef, formData)
+              .then(() => {
+                alert("Başvuru başarıyla kaydedildi!");
+
+                // Update application count for the specific type
+                const countRef = ref(
+                  database,
+                  "applicationCounts/" + applicationType
+                );
+                get(countRef).then((countSnapshot) => {
+                  let currentCount = countSnapshot.exists()
+                    ? countSnapshot.val()
+                    : 0;
+                  // Increase the count by 1
+                  countRef
+                    .set(currentCount + 1)
+                    .then(() => console.log("Başvuru sayısı güncellendi!"))
+                    .catch((error) =>
+                      console.error(
+                        "Başvuru sayısı güncellenirken hata oluştu:",
+                        error
+                      )
+                    );
+                });
+              })
+              .catch((error) =>
+                console.error("Error submitting application:", error)
+              );
+          })
+          .catch((error) =>
+            console.error("Error checking for existing application:", error)
+          );
       }
 
       checkEmailVerification();
