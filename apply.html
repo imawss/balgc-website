@@ -212,6 +212,23 @@
           <input required type="email" id="viceChairEmail" disabled />
           <label>Telefon Numarası:</label>
           <input required type="number" id="chairNumber" />
+          <label>Okulunuz:</label>
+          <input required type="text" id="viceChairSchool" />
+          <label for="viceChairSchool">Sınıf Seviyeniz:</label>
+          <select required id="viceChairSchool" onchange="showForm()">
+            <option value="">Sınıf Seviyenizi Seçiniz:</option>
+            <option value="hazirlik">Hazırlık</option>
+            <option value="lise1">
+              9.Sınıf
+            </option>
+            <option value="lise2">10.Sınıf</option>
+            <option value="lise3">
+              11.Sınıf
+            </option>
+            <option value="lise4">12.Sınıf</option>
+          </select>
+          <label>Varsa Deneyimleriniz:</label>
+          <input required type="text" id="viceChairExperience" />
           <label for="chairCommittee">Komite Tercihlerinizi Seçin:</label>
           <select required id="chairCommittee" onchange="showForm()">
             <option value="">1. Komite Tercihinizi Seçiniz</option>
@@ -280,6 +297,23 @@
           <input required type="email" id="delegateEmail" disabled />
           <label>Telefon Numarası:</label>
           <input required type="number" id="delegateNumber" />
+          <label>Okulunuz:</label>
+          <input required type="text" id="delegateSchool" />
+          <label for="delegateSchool">Sınıf Seviyeniz:</label>
+          <select required id="delegateSchool" onchange="showForm()">
+            <option value="">Sınıf Seviyenizi Seçiniz:</option>
+            <option value="hazirlik">Hazırlık</option>
+            <option value="lise1">
+              9.Sınıf
+            </option>
+            <option value="lise2">10.Sınıf</option>
+            <option value="lise3">
+              11.Sınıf
+            </option>
+            <option value="lise4">12.Sınıf</option>
+          </select>
+          <label>Varsa Deneyimleriniz:</label>
+          <input required type="text" id="delegateExperience" />
           <label for="committee">Komite Tercihlerinizi Seçin:</label>
           <select required id="committee" onchange="showForm()">
             <option value="">1. Komite Tercihinizi Seçiniz</option>
@@ -348,7 +382,22 @@
           <input required type="email" id="observerEmail" disabled />
           <label>Telefon Numarası:</label>
           <input required type="number" id="observerNumber" />
-          <label>Önceki Deneyim:</label>
+          <label>Okulunuz:</label>
+          <input required type="text" id="observerSchool" />
+          <label for="observerSchool">Sınıf Seviyeniz:</label>
+          <select required id="observerSchool" onchange="showForm()">
+            <option value="">Sınıf Seviyenizi Seçiniz</option>
+            <option value="hazirlik">Hazırlık</option>
+            <option value="lise1">
+              9.Sınıf
+            </option>
+            <option value="lise2">10.Sınıf</option>
+            <option value="lise3">
+              11.Sınıf
+            </option>
+            <option value="lise4">12.Sınıf</option>
+          </select>
+          <label>Varsa Deneyimleriniz:</label>
           <input required type="text" id="observerExperience" />
           <label>Motivasyon Mektubu:</label>
           <input required type="text" id="observerLetter" />
@@ -368,7 +417,22 @@
           <input required type="text" id="pressCamInfo" />
           <label>Kurgu/Montaj Bilginiz Var Mı:</label>
           <input required type="text" id="pressSkill" />
-          <label>Önceki Deneyim:</label>
+          <label>Okulunuz:</label>
+          <input required type="text" id="pressSchool" />
+          <label for="pressSchool">Sınıf Seviyeniz:</label>
+          <select required id="pressSchool" onchange="showForm()">
+            <option value="">Sınıf Seviyenizi Seçiniz:</option>
+            <option value="hazirlik">Hazırlık</option>
+            <option value="lise1">
+              9.Sınıf
+            </option>
+            <option value="lise2">10.Sınıf</option>
+            <option value="lise3">
+              11.Sınıf
+            </option>
+            <option value="lise4">12.Sınıf</option>
+          </select>
+          <label>Varsa Deneyimleriniz:</label>
           <input required type="text" id="pressExperience" />
           <label>Motivasyon Mektubu:</label>
           <input required type="text" id="pressLetter" />
@@ -530,6 +594,8 @@
                 document.getElementById("viceChairName")?.value || "";
               formData.phoneNumber =
                 document.getElementById("chairNumber").value || "";
+              formData.phoneNumber =
+                document.getElementById("chairSchool").value || "";
               formData.experience =
                 document.getElementById("chairExperience").value || "";
               formData.letter =
@@ -547,6 +613,8 @@
                 document.getElementById("delegateName")?.value || "";
               formData.phoneNumber =
                 document.getElementById("delegateNumber")?.value || "";
+              formData.phoneNumber =
+                document.getElementById("delegateSchool")?.value || "";
               formData.experience =
                 document.getElementById("delegateExperience")?.value || "";
               formData.letter =
@@ -564,6 +632,8 @@
                 document.getElementById("observerName")?.value || "";
               formData.phoneNumber =
                 document.getElementById("observerNumber").value || "";
+              formData.phoneNumber =
+                document.getElementById("observerSchool").value || "";
               formData.experience =
                 document.getElementById("observerExperience").value || "";
               formData.letter =
@@ -574,6 +644,8 @@
               formData.name = document.getElementById("pressName")?.value || "";
               formData.phoneNumber =
                 document.getElementById("pressNumber").value || "";
+              formData.phoneNumber =
+                document.getElementById("pressSchool").value || "";
               formData.phoneNumber =
                 document.getElementById("pressCamInfo").value || "";
               formData.phoneNumber =
