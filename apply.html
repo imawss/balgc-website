@@ -76,8 +76,8 @@
         align-items: center;
         width: 100%;
         max-width: 500px;
-        margin: auto; 
-        padding-top: 100px; 
+        margin: auto;
+        padding-top: 100px;
         box-sizing: border-box;
         z-index: 1;
       }
@@ -209,45 +209,135 @@
         <div id="viceChairForm" class="form-section">
           <h3>Komite Başkan Vekili Başvurusu</h3>
           <label>Ad Soyad:</label>
-          <input type="text" id="viceChairName" />
+          <input required type="text" id="viceChairName" />
           <label>Email:</label>
-          <input type="email" id="viceChairEmail" disabled />
+          <input required type="email" id="viceChairEmail" disabled />
+          <label>Telefon Numarası:</label>
+          <input required type="number" id="chairNumber" />
+          <label for="chairCommittee">Komite Tercihlerinizi Seçin:</label>
+          <select required id="chairCommittee" onchange="showForm()">
+            <option value="">1. Komite Tercihinizi Seçiniz</option>
+            <option value="hacli-seferleri">Haçlı Seferleri</option>
+            <option value="walking-dead-kriz">
+              The Walking Dead Kriz Komitesi
+            </option>
+            <option value="ekonomi">Ekonomi Komitesi</option>
+            <option value="sezarın-olumu-kriz">
+              Sezar'ın Ölümü Kriz Komitesi
+            </option>
+            <option value="egitim">Eğitim Komitesi</option>
+            <option value="btk">Bilim Ve Teknoloji Komitesi</option>
+            <option value="hukuk">Hukuk Komitesi</option>
+            <option value="sgk">Sosyal Güvenlik Komitesi</option>
+            <option value="tarih">Tarih Komitesi</option>
+            <option value="disisleri">Dışişleri Komitesi</option>
+          </select>
+          <select required id="chairCommittee2" onchange="showForm()">
+            <option value="">2. Komite Tercihinizi Seçiniz</option>
+            <option value="hacli-seferleri">Haçlı Seferleri</option>
+            <option value="walking-dead-kriz">
+              The Walking Dead Kriz Komitesi
+            </option>
+            <option value="ekonomi">Ekonomi Komitesi</option>
+            <option value="sezarın-olumu-kriz">
+              Sezar'ın Ölümü Kriz Komitesi
+            </option>
+            <option value="egitim">Eğitim Komitesi</option>
+            <option value="btk">Bilim Ve Teknoloji Komitesi</option>
+            <option value="hukuk">Hukuk Komitesi</option>
+            <option value="sgk">Sosyal Güvenlik Komitesi</option>
+            <option value="tarih">Tarih Komitesi</option>
+            <option value="disisleri">Dışişleri Komitesi</option>
+          </select>
+          <select required id="chairCommittee3" onchange="showForm()">
+            <option value="">3. Komite Tercihinizi Seçiniz</option>
+            <option value="hacli-seferleri">Haçlı Seferleri</option>
+            <option value="walking-dead-kriz">
+              The Walking Dead Kriz Komitesi
+            </option>
+            <option value="ekonomi">Ekonomi Komitesi</option>
+            <option value="sezarın-olumu-kriz">
+              Sezar'ın Ölümü Kriz Komitesi
+            </option>
+            <option value="egitim">Eğitim Komitesi</option>
+            <option value="btk">Bilim Ve Teknoloji Komitesi</option>
+            <option value="hukuk">Hukuk Komitesi</option>
+            <option value="sgk">Sosyal Güvenlik Komitesi</option>
+            <option value="tarih">Tarih Komitesi</option>
+            <option value="disisleri">Dışişleri Komitesi</option>
+          </select>
+          <label>Önceki Deneyim:</label>
+          <input required type="text" id="chairExperience" />
+          <label>Motivasyon Mektubu:</label>
+          <input required type="text" id="chairLetter" />
+          <label>Referansınız:</label>
+          <input required type="text" id="chairReferance" />
         </div>
 
         <div id="delegateForm" class="form-section">
           <h3>Delege Başvurusu</h3>
           <label>Ad Soyad:</label>
-          <input type="text" id="delegateName" />
+          <input required type="text" id="delegateName" />
           <label>Email:</label>
-          <input type="email" id="delegateEmail" disabled />
+          <input required type="email" id="delegateEmail" disabled />
           <label>Telefon Numarası:</label>
-          <input type="number" id="delegateNumber" />
-          <label for="committee">Başvuru Türü Seçin:</label>
-          <select id="committee" onchange="showForm()">
+          <input required type="number" id="delegateNumber" />
+          <label for="committee">Komite Tercihlerinizi Seçin:</label>
+          <select required id="committee" onchange="showForm()">
             <option value="">1. Komite Tercihinizi Seçiniz</option>
-            <option value="vice-chair">Komite Başkan Vekili</option>
-            <option value="delegate">Delege</option>
-            <option value="observer">Gözlemci</option>
-            <option value="press">Basın</option>
+            <option value="hacli-seferleri">Haçlı Seferleri</option>
+            <option value="walking-dead-kriz">
+              The Walking Dead Kriz Komitesi
+            </option>
+            <option value="ekonomi">Ekonomi Komitesi</option>
+            <option value="sezarın-olumu-kriz">
+              Sezar'ın Ölümü Kriz Komitesi
+            </option>
+            <option value="egitim">Eğitim Komitesi</option>
+            <option value="btk">Bilim Ve Teknoloji Komitesi</option>
+            <option value="hukuk">Hukuk Komitesi</option>
+            <option value="sgk">Sosyal Güvenlik Komitesi</option>
+            <option value="tarih">Tarih Komitesi</option>
+            <option value="disisleri">Dışişleri Komitesi</option>
           </select>
-          <select id="committee2" onchange="showForm()">
+          <select required id="committee2" onchange="showForm()">
             <option value="">2. Komite Tercihinizi Seçiniz</option>
-            <option value="vice-chair">Komite Başkan Vekili</option>
-            <option value="delegate">Delege</option>
-            <option value="observer">Gözlemci</option>
-            <option value="press">Basın</option>
+            <option value="hacli-seferleri">Haçlı Seferleri</option>
+            <option value="walking-dead-kriz">
+              The Walking Dead Kriz Komitesi
+            </option>
+            <option value="ekonomi">Ekonomi Komitesi</option>
+            <option value="sezarın-olumu-kriz">
+              Sezar'ın Ölümü Kriz Komitesi
+            </option>
+            <option value="egitim">Eğitim Komitesi</option>
+            <option value="btk">Bilim Ve Teknoloji Komitesi</option>
+            <option value="hukuk">Hukuk Komitesi</option>
+            <option value="sgk">Sosyal Güvenlik Komitesi</option>
+            <option value="tarih">Tarih Komitesi</option>
+            <option value="disisleri">Dışişleri Komitesi</option>
           </select>
-          <select id="committee3" onchange="showForm()">
+          <select required id="committee3" onchange="showForm()">
             <option value="">3. Komite Tercihinizi Seçiniz</option>
-            <option value="vice-chair">Komite Başkan Vekili</option>
-            <option value="delegate">Delege</option>
-            <option value="observer">Gözlemci</option>
-            <option value="press">Basın</option>
+            <option value="hacli-seferleri">Haçlı Seferleri</option>
+            <option value="walking-dead-kriz">
+              The Walking Dead Kriz Komitesi
+            </option>
+            <option value="ekonomi">Ekonomi Komitesi</option>
+            <option value="sezarın-olumu-kriz">
+              Sezar'ın Ölümü Kriz Komitesi
+            </option>
+            <option value="egitim">Eğitim Komitesi</option>
+            <option value="btk">Bilim Ve Teknoloji Komitesi</option>
+            <option value="hukuk">Hukuk Komitesi</option>
+            <option value="sgk">Sosyal Güvenlik Komitesi</option>
+            <option value="tarih">Tarih Komitesi</option>
+            <option value="disisleri">Dışişleri Komitesi</option>
           </select>
           <label>Önceki Deneyim:</label>
           <input type="text" id="delegateExperience" />
           <label>Motivasyon Mektubu:</label>
-          <input type="text" id="delegateLetter" />
+          <input required type="text" id="delegateLetter" />
           <label>Referansınız:</label>
           <input type="text" id="delegateReferance" />
         </div>
@@ -255,20 +345,41 @@
         <div id="observerForm" class="form-section">
           <h3>Gözlemci Başvurusu</h3>
           <label>Ad Soyad:</label>
-          <input type="text" id="observerName" />
+          <input required type="text" id="observerName" />
           <label>Email:</label>
-          <input type="email" id="observerEmail" disabled />
+          <input required type="email" id="observerEmail" disabled />
+          <label>Telefon Numarası:</label>
+          <input required type="number" id="observerNumber" />
+          <label>Önceki Deneyim:</label>
+          <input required type="text" id="observerExperience" />
+          <label>Motivasyon Mektubu:</label>
+          <input required type="text" id="observerLetter" />
+          <label>Referansınız:</label>
+          <input type="text" id="observerReferance" />
         </div>
 
         <div id="pressForm" class="form-section">
           <h3>Basın Başvurusu</h3>
           <label>Ad Soyad:</label>
-          <input type="text" id="pressName" />
+          <input required type="text" id="pressName" />
           <label>Email:</label>
           <input type="email" id="pressEmail" disabled />
+          <label>Telefon Numarası:</label>
+          <input required type="number" id="pressNumber" />
+          <label>Kameranızın Modeli:</label>
+          <input required type="text" id="pressCamInfo" />
+          <label>Kurgu/Montaj Bilginiz Var Mı:</label>
+          <input required type="text" id="pressSkill" />
+          <label>Önceki Deneyim:</label>
+          <input required type="text" id="pressExperience" />
+          <label>Motivasyon Mektubu:</label>
+          <input required type="text" id="pressLetter" />
+          <label>Referansınız:</label>
+          <input type="text" id="pressReferance" />
         </div>
 
         <button onclick="submitApplication()">Başvuruyu Gönder</button>
+        <button style="margin-top: 10px" id="logoutBtn">Çıkış Yap</button>
       </div>
     </div>
 
@@ -280,6 +391,7 @@
         createUserWithEmailAndPassword,
         onAuthStateChanged,
         sendEmailVerification,
+        signOut,
       } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
       import {
         getDatabase,
@@ -306,18 +418,41 @@
 
       function sendVerificationEmail() {
         const email = document.getElementById("otpEmail").value;
-        createUserWithEmailAndPassword(
-          auth,
-          email,
-          "temporaryPassword123"
-        ).then((userCredential) => {
-          const user = userCredential.user;
-          sendEmailVerification(user).then(() => {
-            document.getElementById("statusMessage").innerText =
-              "Doğrulama e-postası gönderildi. Lütfen e-postanızı kontrol edin.";
+        createUserWithEmailAndPassword(auth, email, "temporaryPassword123")
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            if (errorCode === "auth/email-already-in-use") {
+              alert(
+                "Bu email adresi zaten kullanılıyor. Lütfen farklı bir adres girin."
+              );
+            } else {
+              alert("Hata: ${errorMessage}");
+            }
+          })
+          .then((userCredential) => {
+            const user = userCredential.user;
+            sendEmailVerification(user).then(() => {
+              document.getElementById("statusMessage").innerText =
+                "Doğrulama e-postası gönderildi. Lütfen doğrulamanın ardından sayfayı yenileyiniz.";
+            });
           });
-        });
       }
+
+      const logoutButton = document.getElementById("logoutBtn");
+
+      logoutButton.addEventListener("click", () => {
+        auth
+          .signOut()
+          .then(() => {
+            console.log("Çıkış yapıldı");
+            window.location.href = "apply.html";
+          })
+          .catch((error) => {
+            console.error("Çıkış yaparken hata oluştu:", error);
+          });
+      });
 
       function checkEmailVerification() {
         onAuthStateChanged(auth, (user) => {
@@ -395,6 +530,20 @@
             if (applicationType === "vice-chair") {
               formData.name =
                 document.getElementById("viceChairName")?.value || "";
+              formData.phoneNumber =
+                document.getElementById("chairNumber").value || "";
+              formData.experience =
+                document.getElementById("chairExperience").value || "";
+              formData.letter =
+                document.getElementById("chairLetter").value || "";
+              formData.referance =
+                document.getElementById("chairReferance").value || "";
+              formData.chairCommittee =
+                document.getElementById("chairCommittee")?.value || "";
+              formData.chairCommittee2 =
+                document.getElementById("chairCommittee2")?.value || "";
+              formData.chairCommittee3 =
+                document.getElementById("chairCommittee3")?.value || "";
             } else if (applicationType === "delegate") {
               formData.name =
                 document.getElementById("delegateName")?.value || "";
@@ -415,8 +564,36 @@
             } else if (applicationType === "observer") {
               formData.name =
                 document.getElementById("observerName")?.value || "";
+              formData.phoneNumber =
+                document.getElementById("observerNumber").value || "";
+              formData.experience =
+                document.getElementById("observerExperience").value || "";
+              formData.letter =
+                document.getElementById("observerLetter").value || "";
+              formData.referance =
+                document.getElementById("observerReferance").value || "";
             } else if (applicationType === "press") {
               formData.name = document.getElementById("pressName")?.value || "";
+              formData.phoneNumber =
+                document.getElementById("pressNumber").value || "";
+              formData.phoneNumber =
+                document.getElementById("pressCamInfo").value || "";
+              formData.phoneNumber =
+                document.getElementById("pressSkills").value || "";
+              formData.experience =
+                document.getElementById("pressExperience").value || "";
+              formData.letter =
+                document.getElementById("pressLetter").value || "";
+              formData.referance =
+                document.getElementById("pressReferance").value || "";
+            }
+
+            const requiredFields = Object.values(formData);
+            for (const field of requiredFields) {
+              if (field === "") {
+                alert("Lütfen tüm gerekli alanları doldurun.");
+                return;
+              }
             }
 
             push(applicationsRef, formData)
@@ -469,6 +646,9 @@
       window.sendVerificationEmail = sendVerificationEmail;
       window.showForm = showForm;
       window.submitApplication = submitApplication;
+      window.onload = () => {
+        checkEmailVerification();
+      };
     </script>
   </body>
 </html>
