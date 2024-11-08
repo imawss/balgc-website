@@ -223,7 +223,7 @@
       <div class="menu">
         <a href="apply.html">Başvur</a>
         <a href="committees.html">Komiteler</a>
-        <a href="#section3">İletişim</a>
+        <a href="contact.html">İletişim</a>
       </div>
     </div>
 
@@ -240,25 +240,41 @@
       </div>
 
       <div id="section2" class="section section-2">
-        <div id="count-box-admin" class="count-box" style="background-image: url('assets/img/symbol/admin.JPG')">
+        <div
+          id="count-box-admin"
+          class="count-box"
+          style="background-image: url('assets/img/symbol/admin.JPG')"
+        >
           <div class="count-overlay">
-            <span>Delege:</span>
+            <span>Gözlemci:</span>
             <div id="count-admin">0</div>
           </div>
         </div>
-        <div id="count-box-delegate" class="count-box" style="background-image: url('assets/img/symbol/delegate.JPG')">
+        <div
+          id="count-box-delegate"
+          class="count-box"
+          style="background-image: url('assets/img/symbol/delegate.JPG')"
+        >
           <div class="count-overlay">
-            <span>Basın:</span>
+            <span>Delege:</span>
             <div id="count-delegate">0</div>
           </div>
         </div>
-        <div id="count-box-press" class="count-box" style="background-image: url('assets/img/symbol/press.JPG')">
+        <div
+          id="count-box-press"
+          class="count-box"
+          style="background-image: url('assets/img/symbol/press.JPG')"
+        >
           <div class="count-overlay">
-            <span>Gözlemci:</span>
+            <span>Basın:</span>
             <div id="count-press">0</div>
           </div>
         </div>
-        <div id="count-box-vice-chair" class="count-box" style="background-image: url('assets/img/symbol/chair.JPG')">
+        <div
+          id="count-box-vice-chair"
+          class="count-box"
+          style="background-image: url('assets/img/symbol/chair.JPG')"
+        >
           <div class="count-overlay">
             <span>Vekil: </span>
             <div id="count-vice-chair">0</div>
@@ -298,7 +314,15 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 
-    <script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        onValue,
+      } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+      // Firebase yapılandırması
       const firebaseConfig = {
         apiKey: "AIzaSyCWPy8BkRFzz8HNQFdlW0eC1qxP9I0IShE",
         authDomain: "balgcvi.firebaseapp.com",
@@ -311,16 +335,18 @@
         measurementId: "G-3CHWDRHDHJ",
       };
 
-      const app = firebase.initializeApp(firebaseConfig);
-      const database = firebase.database();
+      // Firebase uygulamasını başlat
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
 
+      // Başvuru sayılarının alınması
       async function fetchApplicationCounts() {
         try {
-          const countsRef = database.ref("applicationCounts");
-
-          countsRef.on("value", (snapshot) => {
+          const countsRef = ref(database, "applicationCounts");
+          onValue(countsRef, (snapshot) => {
             const counts = snapshot.val();
 
+            // Sayıları sayfa üzerine yazdır
             document.getElementById("count-admin").textContent =
               counts?.admin || 0;
             document.getElementById("count-delegate").textContent =
@@ -331,7 +357,7 @@
               counts?.["vice-chair"] || 0;
           });
         } catch (error) {
-          console.error("Error fetching application counts:", error);
+          console.error("Başvuru sayıları alınırken bir hata oluştu:", error);
         }
       }
 

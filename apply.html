@@ -181,7 +181,7 @@
       <div class="menu">
         <a href="apply.html">Başvur</a>
         <a href="committees.html">Komiteler</a>
-        <a href="#section3">İletişim</a>
+        <a href="contact.html">İletişim</a>
       </div>
     </div>
     <div class="container">
@@ -199,7 +199,6 @@
         <h2>BALGÇ Başvuru Formu:</h2>
         <label for="applicationType">Başvuru Türü Seçin:</label>
         <select id="applicationType" onchange="showForm()">
-          <option value="">Başvuru Türü Seçin</option>
           <option value="vice-chair">Komite Başkan Vekili</option>
           <option value="delegate">Delege</option>
           <option value="observer">Gözlemci</option>
@@ -579,7 +578,7 @@
               formData.phoneNumber =
                 document.getElementById("pressCamInfo").value || "";
               formData.phoneNumber =
-                document.getElementById("pressSkills").value || "";
+                document.getElementById("pressSkill").value || "";
               formData.experience =
                 document.getElementById("pressExperience").value || "";
               formData.letter =
