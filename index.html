@@ -322,7 +322,6 @@
         onValue,
       } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-      // Firebase yapılandırması
       const firebaseConfig = {
         apiKey: "AIzaSyCWPy8BkRFzz8HNQFdlW0eC1qxP9I0IShE",
         authDomain: "balgcvi.firebaseapp.com",
@@ -335,18 +334,15 @@
         measurementId: "G-3CHWDRHDHJ",
       };
 
-      // Firebase uygulamasını başlat
       const app = initializeApp(firebaseConfig);
       const database = getDatabase(app);
 
-      // Başvuru sayılarının alınması
       async function fetchApplicationCounts() {
         try {
           const countsRef = ref(database, "applicationCounts");
           onValue(countsRef, (snapshot) => {
             const counts = snapshot.val();
 
-            // Sayıları sayfa üzerine yazdır
             document.getElementById("count-admin").textContent =
               counts?.admin || 0;
             document.getElementById("count-delegate").textContent =
